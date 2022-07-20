@@ -13,11 +13,7 @@ const check_player: number[][] = [
 const Tiles = () => {
   const tiles = hiraganas.map((line, row) =>
     line.map((element, col) => (
-      <Tile
-        key={element}
-        chara={element}
-        check_player={check_player[row][col]}
-      />
+      <Tile key={element} chara={element} check_player={check_player[row][col]} />
     ))
   );
 
