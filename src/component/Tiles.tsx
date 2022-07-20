@@ -1,6 +1,6 @@
 import Tile from "./Tile";
-import { hiraganas } from "./lib/Database";
-import "./css/Tiles.scss";
+import { hiraganas } from "../lib/Database";
+import "../css/Tiles.scss";
 
 const check_player: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],

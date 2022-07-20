@@ -1,4 +1,4 @@
-import "./css/Modal.css";
+import "../css/Modal.css";
 
 const Modal = (props) => {
   const closeModal = () => {

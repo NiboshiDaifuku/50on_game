@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Tiles from "./Tiles";
-import Modal from "./Modal";
+import Tiles from "./component/Tiles";
+import Modal from "./component/Modal";
 import { getGameTheme } from "./lib/GameOperation";
 
 import "./css/App.css";
