@@ -1,0 +1,40 @@
+.Tiles {
+  width: 516px;
+  height: 300px;
+  padding-left: 10px;
+  border-radius: 1%;
+  background-color: lightgrey;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.Tile {
+  float: left;
+  margin: 3px;
+  width: 50px;
+  height: 50px;
+  border-radius: 15%;
+  background-color: white;
+
+  &.p1check {
+    background-color: lightcoral;
+  }
+  &.p2check {
+    background-color: limegreen;
+  }
+  &.p3check {
+    background-color: cornflowerblue;
+  }
+  &.p4check {
+    background-color: gold;
+  }
+}
+
+.chara {
+  position: relative;
+  font-size: 25px;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
