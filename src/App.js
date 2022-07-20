@@ -16,9 +16,21 @@ export default function App() {
     <div className="App">
       <h1>知的協力ゲーム「50音表をぬりつぶせ！」</h1>
       <h3>お題: {getGameTheme()}</h3>
-      <button onClick={showRuleModal}>ルール説明</button>
+      <button className="button-rule" onClick={showRuleModal}>
+        ルール説明
+      </button>
       <Tiles />
       <Modal showFlag={showRuleFlag} setShowModal={setShowRuleModal} />
+      <form>
+        <input
+          type="text"
+          name="answer"
+          pattern="[ぁ-んー]+"
+          placeholder="ひらがなで回答を入力してね"
+          required
+        />
+        <button className="button-answer">決定</button>
+      </form>
     </div>
   );
 }
