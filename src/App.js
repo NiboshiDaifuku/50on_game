@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import Tiles from "./component/Tiles";
 import Modal from "./component/Modal";
 import Player from "./component/Player";
@@ -19,6 +19,9 @@ import "./css/Tiles.scss";
 import { answerQueue } from "./lib/Database";
 
 export default function App() {
+  // 強制レンダリング
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
   // ルール説明用Modal
   const [showRuleFlag, setShowRuleModal] = useState(false);
   const showRuleModal = () => {
@@ -34,6 +37,10 @@ export default function App() {
   // 回答テキスト
   const [tempText, setTempText] = useState("");
   //const [answerText, setAnswerText] = useState("");
+  const onClickPassButton = () => {
+    updatePlayerTurn();
+    forceUpdate();
+  };
   const onClickAnswerButton = () => {
     const checkResult = checkAnswerText(tempText);
 
@@ -62,7 +69,7 @@ export default function App() {
   return (
     <div className="App">
       <h1>知的協力ゲーム「50音表をぬりつぶせ！」</h1>
-      <h3>お題: {gameTheme}</h3>
+      <h2>お題: {gameTheme}</h2>
       <button className="button-rule" onClick={showRuleModal}>
         ルール説明
       </button>
@@ -85,6 +92,13 @@ export default function App() {
         onClick={onClickAnswerButton}
       >
         決定
+      </button>
+      <button
+        className={"button-answer p" + getPlayerTurn()}
+        type="button"
+        onClick={onClickPassButton}
+      >
+        パス
       </button>
       {/* answerQueue */}
     </div>
