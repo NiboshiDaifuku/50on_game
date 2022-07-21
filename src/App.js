@@ -22,6 +22,12 @@ export default function App() {
     setShowRuleModal(true);
   };
 
+  // お題リセットボタン
+  const [gameTheme, setGameTheme] = useState(getGameTheme());
+  const resetGameTheme = () => {
+    setGameTheme(getGameTheme());
+  };
+
   // プレイヤー情報
   const p1_name = "プレイヤー1";
   const p2_name = "プレイヤー2";
@@ -54,9 +60,12 @@ export default function App() {
   return (
     <div className="App">
       <h1>知的協力ゲーム「50音表をぬりつぶせ！」</h1>
-      <h3>お題: {getGameTheme()}</h3>
+      <h3>お題: {gameTheme}</h3>
       <button className="button-rule" onClick={showRuleModal}>
         ルール説明
+      </button>
+      <button className="button-rule" onClick={resetGameTheme}>
+        お題リセット
       </button>
       <Tiles />
       <Player
