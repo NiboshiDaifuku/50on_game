@@ -1,5 +1,5 @@
-const getTileColor = (check_player: number) => {
-  switch (check_player) {
+const getTileColor = (paint_player: number) => {
+  switch (paint_player) {
     case 1:
       return "Tile p1check";
     case 2:
@@ -15,8 +15,8 @@ const getTileColor = (check_player: number) => {
 
 const Tile = (props) => {
   return (
-    <div className={getTileColor(props.check_player)}>
-      <div className="chara">{props.check_player === 0 ? props.chara : ""}</div>
+    <div className={getTileColor(props.paintedPlayer)}>
+      <div className="chara">{props.paintedPlayer === 0 ? props.chara : ""}</div>
     </div>
   );
 };
