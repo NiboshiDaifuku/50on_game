@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Tiles from "./component/Tiles";
 import Modal from "./component/Modal";
+import Player from "./component/Player";
 import {
   checkAnswerText,
   checkTextResult,
@@ -21,20 +22,24 @@ export default function App() {
     setShowRuleModal(true);
   };
 
+  // プレイヤー情報
+  const p1_name = "プレイヤー1";
+  const p2_name = "プレイヤー2";
+  const p3_name = "プレイヤー3";
+  const p4_name = "プレイヤー4";
+
   // 回答テキスト
   const [tempText, setTempText] = useState("");
   const [answerText, setAnswerText] = useState("");
-  const [playerId, setPlayerId] = useState(1);
   const onClickAnswerButton = () => {
     const checkResult = checkAnswerText(tempText);
 
     // 回答がOKならテキストを更新してタイルの色塗りを実行
     if (checkResult === checkTextResult.OK) {
-      updatePlayerTurn();
-      setPlayerId(getPlayerTurn()); // TODO★
       setAnswerText(tempText);
       updateTiles(convertAnswerText(tempText), getPlayerTurn());
       setTempText("");
+      updatePlayerTurn();
     }
     // 回答がNGなら通知を出す
     else if (checkResult === checkTextResult.EMPTY) {
@@ -54,6 +59,13 @@ export default function App() {
         ルール説明
       </button>
       <Tiles />
+      <Player
+        p1_name={p1_name}
+        p2_name={p2_name}
+        p3_name={p3_name}
+        p4_name={p4_name}
+        turn={getPlayerTurn()}
+      />
       <Modal showFlag={showRuleFlag} setShowModal={setShowRuleModal} />
       <input
         type="text"
