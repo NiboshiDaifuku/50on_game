@@ -12,7 +12,7 @@ import {
   updateTiles
 } from "./lib/GameOperation";
 
-import "./css/App.css";
+import "./css/App.scss";
 import "./css/Tiles.scss";
 
 export default function App() {
@@ -70,10 +70,15 @@ export default function App() {
       <input
         type="text"
         name="answer"
+        className={"answer-input-form p" + getPlayerTurn()}
         placeholder="ひらがなで回答を入力してね"
         onChange={(event) => setTempText(event.target.value)}
       />
-      <button className="button-answer" type="button" onClick={onClickAnswerButton}>
+      <button
+        className={"button-answer p" + getPlayerTurn()}
+        type="button"
+        onClick={onClickAnswerButton}
+      >
         決定
       </button>
       <p>temp: {tempText}</p>
