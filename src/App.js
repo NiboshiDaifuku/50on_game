@@ -3,10 +3,12 @@ import Tiles from "./component/Tiles";
 import Modal from "./component/Modal";
 import Player from "./component/Player";
 import {
+  addAnswerQueue,
   checkAnswerText,
   checkTextResult,
   convertAnswerText,
   getGameTheme,
+  getPlayerNameFromId,
   getPlayerTurn,
   updatePlayerTurn,
   updateTiles
@@ -14,6 +16,7 @@ import {
 
 import "./css/App.scss";
 import "./css/Tiles.scss";
+import { answerQueue } from "./lib/Database";
 
 export default function App() {
   // ルール説明用Modal
@@ -28,22 +31,21 @@ export default function App() {
     setGameTheme(getGameTheme());
   };
 
-  // プレイヤー情報
-  const p1_name = "プレイヤー1";
-  const p2_name = "プレイヤー2";
-  const p3_name = "プレイヤー3";
-  const p4_name = "プレイヤー4";
-
   // 回答テキスト
   const [tempText, setTempText] = useState("");
-  const [answerText, setAnswerText] = useState("");
+  //const [answerText, setAnswerText] = useState("");
   const onClickAnswerButton = () => {
     const checkResult = checkAnswerText(tempText);
 
     // 回答がOKならテキストを更新してタイルの色塗りを実行
     if (checkResult === checkTextResult.OK) {
-      setAnswerText(tempText);
+      //setAnswerText(tempText);
       updateTiles(convertAnswerText(tempText), getPlayerTurn());
+      addAnswerQueue({
+        player: getPlayerNameFromId(getPlayerTurn()),
+        answer: tempText,
+        point: convertAnswerText(tempText).length
+      });
       setTempText("");
       updatePlayerTurn();
     }
@@ -68,13 +70,7 @@ export default function App() {
         お題リセット
       </button>
       <Tiles />
-      <Player
-        p1_name={p1_name}
-        p2_name={p2_name}
-        p3_name={p3_name}
-        p4_name={p4_name}
-        turn={getPlayerTurn()}
-      />
+      <Player turn={getPlayerTurn()} />
       <Modal showFlag={showRuleFlag} setShowModal={setShowRuleModal} />
       <input
         type="text"
@@ -90,8 +86,7 @@ export default function App() {
       >
         決定
       </button>
-      <p>temp: {tempText}</p>
-      <p>answer: {answerText}</p>
+      {/* answerQueue */}
     </div>
   );
 }

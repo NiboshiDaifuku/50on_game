@@ -1,4 +1,11 @@
-import { gameTheme, hiraganas, paintedPlayer } from "./Database";
+import {
+  answerArray,
+  answerQueue,
+  gameTheme,
+  hiraganas,
+  playerNames,
+  paintedPlayer
+} from "./Database";
 
 /////////////////////////////////////////
 // ゲーム根幹の処理系
@@ -15,6 +22,10 @@ export const getGameTheme = () => {
   return gameTheme[index];
 };
 
+/////////////////////////////////////////
+// プレイヤーの処理系
+/////////////////////////////////////////
+
 // プレイヤーのターン管理
 let testPlayerId = 1;
 export const getPlayerTurn = () => {
@@ -22,6 +33,11 @@ export const getPlayerTurn = () => {
 };
 export const updatePlayerTurn = () => {
   testPlayerId = (testPlayerId % 4) + 1;
+};
+
+// プレイヤー名の取得
+export const getPlayerNameFromId = (playerId: number) => {
+  return playerNames[playerId - 1];
 };
 
 /////////////////////////////////////////
@@ -105,6 +121,13 @@ export const convertAnswerText = (text: string) => {
     }
   }
   return convertedText;
+};
+
+/////////////////////////////////////////
+// 回答履歴系
+/////////////////////////////////////////
+export const addAnswerQueue = (answerInfo: answerArray) => {
+  answerQueue.unshift(answerInfo);
 };
 
 /////////////////////////////////////////

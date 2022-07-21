@@ -32,3 +32,13 @@ export const paintedPlayer: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
+
+export const playerNames: string[] = ["プレイヤー1", "プレイヤー2", "プレイヤー3", "プレイヤー4"];
+
+export interface answerArray {
+  player: string;
+  answer: string;
+  point: number;
+}
+
+export const answerQueue: answerArray[] = [];
