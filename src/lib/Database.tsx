@@ -43,14 +43,6 @@ export interface answerArray {
 
 export const answerQueue: answerArray[] = [];
 
-export const gameResultModalContent = (
-  <>
-    <h2>ゲーム終了！</h2>
-    <p>結果発表画面に移ります</p>
-    <br />
-  </>
-);
-
 export const ruleModalContent = (
   <>
     <h2>ルール説明</h2>

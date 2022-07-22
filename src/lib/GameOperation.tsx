@@ -8,6 +8,74 @@ import {
 } from "./Database";
 
 /////////////////////////////////////////
+// プレイヤーの処理系
+/////////////////////////////////////////
+
+// プレイヤーのターン管理
+let testPlayerId = 1;
+export const getPlayerTurn = () => {
+  return testPlayerId;
+};
+export const updatePlayerTurn = () => {
+  testPlayerId = (testPlayerId % 4) + 1;
+};
+
+// プレイヤー名の取得
+export const getPlayerNameFromId = (playerId: number) => {
+  return playerNames[playerId - 1];
+};
+
+/////////////////////////////////////////
+// タイル処理系
+/////////////////////////////////////////
+
+// ひらがな1文字を受け取り、そのタイルの座標を返す関数
+const getTilePosFromHiragana = (hiragana: string): { [key: string]: number } => {
+  let tile_pos = { x: -1, y: -1 };
+
+  hiraganas.forEach((line, row) =>
+    line.forEach((element, col) => {
+      if (hiragana === element) {
+        tile_pos.x = row;
+        tile_pos.y = col;
+      }
+    })
+  );
+  return tile_pos;
+};
+
+// タイル座標とプレイヤーIDを受け取り、そのタイルを塗る関数
+const paintTile = (tilePos: { [key: string]: number }, playerId: number) => {
+  // 誰にも塗られていなければ塗る
+  if (paintedPlayer[tilePos.x][tilePos.y] === 0) {
+    paintedPlayer[tilePos.x][tilePos.y] = playerId;
+  }
+};
+
+// 変換済み回答文字列を受け取って、タイルに色を塗る関数
+// ※引数のtextはひらがなのみであることをチェック済みである想定
+export const updateTiles = (text: string, playerId: number) => {
+  for (let i = 0; i < text.length; ++i) {
+    const tilePos = getTilePosFromHiragana(text.charAt(i));
+    paintTile(tilePos, playerId);
+  }
+};
+
+// プレイヤーIDを受け取り、塗りつぶしたタイル数を返す関数
+export const getPaintedTileNumFromPlayerId = (playerId: number) => {
+  let paintedTileNum = 0;
+
+  paintedPlayer.forEach((line) =>
+    line.forEach((element) => {
+      if (element === playerId) {
+        paintedTileNum++;
+      }
+    })
+  );
+  return paintedTileNum;
+};
+
+/////////////////////////////////////////
 // ゲーム根幹の処理系
 /////////////////////////////////////////
 
@@ -41,22 +109,31 @@ export const isGameOver = () => {
   return false;
 };
 
-/////////////////////////////////////////
-// プレイヤーの処理系
-/////////////////////////////////////////
-
-// プレイヤーのターン管理
-let testPlayerId = 1;
-export const getPlayerTurn = () => {
-  return testPlayerId;
-};
-export const updatePlayerTurn = () => {
-  testPlayerId = (testPlayerId % 4) + 1;
-};
-
-// プレイヤー名の取得
-export const getPlayerNameFromId = (playerId: number) => {
-  return playerNames[playerId - 1];
+// Modalに表示するゲーム結果内容を更新する
+export let gameResultModalContent = <></>;
+export const updateGameResultModalContent = () => {
+  gameResultModalContent = (
+    <>
+      <h1>結果発表</h1>
+      <b>
+        {getPlayerNameFromId(1)}: {getPaintedTileNumFromPlayerId(1)}ポイント
+      </b>
+      <br />
+      <b>
+        {getPlayerNameFromId(2)}: {getPaintedTileNumFromPlayerId(2)}ポイント
+      </b>
+      <br />
+      <b>
+        {getPlayerNameFromId(3)}: {getPaintedTileNumFromPlayerId(3)}ポイント
+      </b>
+      <br />
+      <b>
+        {getPlayerNameFromId(4)}: {getPaintedTileNumFromPlayerId(4)}ポイント
+      </b>
+      <br />
+      <br />
+    </>
+  );
 };
 
 /////////////////////////////////////////
@@ -147,40 +224,4 @@ export const convertAnswerText = (text: string) => {
 /////////////////////////////////////////
 export const addAnswerQueue = (answerInfo: answerArray) => {
   answerQueue.unshift(answerInfo);
-};
-
-/////////////////////////////////////////
-// タイル処理系
-/////////////////////////////////////////
-
-// ひらがな1文字を受け取り、そのタイルの座標を返す関数
-const getTilePosFromHiragana = (hiragana: string): { [key: string]: number } => {
-  let tile_pos = { x: -1, y: -1 };
-
-  hiraganas.forEach((line, row) =>
-    line.forEach((element, col) => {
-      if (hiragana === element) {
-        tile_pos.x = row;
-        tile_pos.y = col;
-      }
-    })
-  );
-  return tile_pos;
-};
-
-// タイル座標とプレイヤーIDを受け取り、そのタイルを塗る関数
-const paintTile = (tilePos: { [key: string]: number }, playerId: number) => {
-  // 誰にも塗られていなければ塗る
-  if (paintedPlayer[tilePos.x][tilePos.y] === 0) {
-    paintedPlayer[tilePos.x][tilePos.y] = playerId;
-  }
-};
-
-// 変換済み回答文字列を受け取って、タイルに色を塗る関数
-// ※引数のtextはひらがなのみであることをチェック済みである想定
-export const updateTiles = (text: string, playerId: number) => {
-  for (let i = 0; i < text.length; ++i) {
-    const tilePos = getTilePosFromHiragana(text.charAt(i));
-    paintTile(tilePos, playerId);
-  }
 };

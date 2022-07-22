@@ -7,17 +7,19 @@ import {
   checkAnswerText,
   checkTextResult,
   convertAnswerText,
+  gameResultModalContent,
   getGameTheme,
   getPlayerNameFromId,
   getPlayerTurn,
   isGameOver,
+  updateGameResultModalContent,
   updatePlayerTurn,
   updateTiles
 } from "./lib/GameOperation";
 
 import "./css/App.scss";
 import "./css/Tiles.scss";
-import { answerQueue, ruleModalContent, gameResultModalContent } from "./lib/Database";
+import { answerQueue, ruleModalContent } from "./lib/Database";
 
 export default function App() {
   // 強制レンダリング
@@ -70,6 +72,7 @@ export default function App() {
     }
 
     if (isGameOver()) {
+      updateGameResultModalContent();
       setGameOver(true);
     }
   };
