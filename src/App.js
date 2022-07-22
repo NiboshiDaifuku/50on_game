@@ -10,22 +10,23 @@ import {
   getGameTheme,
   getPlayerNameFromId,
   getPlayerTurn,
+  isGameOver,
   updatePlayerTurn,
   updateTiles
 } from "./lib/GameOperation";
 
 import "./css/App.scss";
 import "./css/Tiles.scss";
-import { answerQueue } from "./lib/Database";
+import { answerQueue, ruleModalContent, gameResultModalContent } from "./lib/Database";
 
 export default function App() {
   // 強制レンダリング
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   // ルール説明用Modal
-  const [showRuleFlag, setShowRuleModal] = useState(false);
-  const showRuleModal = () => {
-    setShowRuleModal(true);
+  const [showModalFlag, setShowModal] = useState(false);
+  const showModal = () => {
+    setShowModal(true);
   };
 
   // お題リセットボタン
@@ -33,6 +34,9 @@ export default function App() {
   const resetGameTheme = () => {
     setGameTheme(getGameTheme());
   };
+
+  // ゲーム終了画面用Modal
+  const [gameOver, setGameOver] = useState(false);
 
   // 回答テキスト
   const [tempText, setTempText] = useState("");
@@ -64,13 +68,17 @@ export default function App() {
     } else if (checkResult === checkTextResult.ALREADY_PAINTED) {
       console.log("ぬりつぶせるタイルがないよ！");
     }
+
+    if (isGameOver()) {
+      setGameOver(true);
+    }
   };
 
   return (
     <div className="App">
       <h1>知的協力ゲーム「50音表をぬりつぶせ！」</h1>
       <h2>お題: {gameTheme}</h2>
-      <button className="button-rule" onClick={showRuleModal}>
+      <button className="button-rule" onClick={showModal}>
         ルール説明
       </button>
       <button className="button-rule" onClick={resetGameTheme}>
@@ -78,7 +86,8 @@ export default function App() {
       </button>
       <Tiles />
       <Player turn={getPlayerTurn()} />
-      <Modal showFlag={showRuleFlag} setShowModal={setShowRuleModal} />
+      <Modal showFlag={showModalFlag} setShowModal={setShowModal} content={ruleModalContent} />
+      <Modal showFlag={gameOver} setShowModal={setShowModal} content={gameResultModalContent} />
       <input
         type="text"
         name="answer"

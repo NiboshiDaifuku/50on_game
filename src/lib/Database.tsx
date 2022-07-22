@@ -42,3 +42,23 @@ export interface answerArray {
 }
 
 export const answerQueue: answerArray[] = [];
+
+export const gameResultModalContent = (
+  <>
+    <h2>ゲーム終了！</h2>
+    <p>結果発表画面に移ります</p>
+    <br />
+  </>
+);
+
+export const ruleModalContent = (
+  <>
+    <h2>ルール説明</h2>
+    <li>自分の順番がきたら、お題に則った言葉を「ひらがな」で入力します。</li>
+    <li>1文字も埋まらない言葉はNGです。</li>
+    <li>伸ばし棒はカウントしません。</li>
+    <li>大文字と小文字は同じ文字として扱います。（例: や＝ゃ　つ＝っ）</li>
+    <li>濁点と半濁点は無視して扱います。（例: は＝ば＝ぱ）</li>
+    <br />
+  </>
+);

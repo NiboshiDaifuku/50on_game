@@ -22,6 +22,25 @@ export const getGameTheme = () => {
   return gameTheme[index];
 };
 
+// ゲームが終了したか判定する関数
+export const isGameOver = () => {
+  let isLeftUnpaintedTile = false;
+
+  paintedPlayer.forEach((line) =>
+    line.forEach((element) => {
+      if (element === 0) {
+        isLeftUnpaintedTile = true;
+      }
+    })
+  );
+
+  // ゲームが終了した = 塗り残しがない
+  if (!isLeftUnpaintedTile) {
+    return true;
+  }
+  return false;
+};
+
 /////////////////////////////////////////
 // プレイヤーの処理系
 /////////////////////////////////////////
