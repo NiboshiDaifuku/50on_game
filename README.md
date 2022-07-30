@@ -33,7 +33,7 @@ https://codesandbox.io/s/github/NiboshiDaifuku/50on_game
 # Release Note
 |バージョン|日付|詳細内容|
 |-|-|-|
-|0.1.0|2022.xx.xx|β版リリース|
+|0.1.0|2022.07.31|β版リリース|
 
 # 開発環境
 Google Chrome + CodeSandbox のみで書いてます。  
