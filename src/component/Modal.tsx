@@ -1,4 +1,4 @@
-import "../css/Modal.css";
+import "../css/Modal.scss";
 
 const Modal = (props) => {
   const closeModal = () => {
@@ -9,9 +9,11 @@ const Modal = (props) => {
     <>
       {props.showFlag ? ( // showFlagがtrueだったらModalを表示する
         <div className="overlay">
-          <div className="modalContent">
-            {props.content}
-            <button onClick={closeModal}>閉じる</button>
+          <div className="modal-content">
+            <div className="text-area">{props.content}</div>
+            <button className="button" onClick={closeModal}>
+              閉じる
+            </button>
           </div>
         </div>
       ) : (
