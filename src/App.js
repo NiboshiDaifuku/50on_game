@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "./component/Modal";
 import GameSection from "./component/GameSection";
+import InformationSection from "./component/InformationSection";
 import { getGameTheme } from "./lib/GameOperation";
 import { ruleModalContent } from "./lib/Database";
 
@@ -31,6 +32,7 @@ export default function App() {
         お題リセット
       </button>
       <GameSection />
+      <InformationSection />
       <Modal showFlag={showModalFlag} setShowModal={setShowModal} content={ruleModalContent} />
     </div>
   );
