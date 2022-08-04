@@ -1,17 +1,5 @@
 .App {
   font-family: sans-serif;
   text-align: center;
-}
-
-.button-rule {
-  width: 150px;
-  height: 40px;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0px 5px 15px 5px;
-  border: solid 0px;
-  border-radius: 5px;
-  background-color: gray;
-  cursor: pointer;
+  display: flex;
 }
