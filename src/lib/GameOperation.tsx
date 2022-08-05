@@ -1,11 +1,4 @@
-import {
-  answerArray,
-  answerQueue,
-  gameTheme,
-  hiraganas,
-  playerNames,
-  paintedPlayer
-} from "./Database";
+import { gameTheme, hiraganas, playerNames, paintedPlayer } from "./Database";
 
 /////////////////////////////////////////
 // プレイヤーの処理系
@@ -222,6 +215,3 @@ export const convertAnswerText = (text: string) => {
 /////////////////////////////////////////
 // 回答履歴系
 /////////////////////////////////////////
-export const addAnswerQueue = (answerInfo: answerArray) => {
-  answerQueue.unshift(answerInfo);
-};

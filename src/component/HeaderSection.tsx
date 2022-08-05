@@ -20,7 +20,7 @@ const HeaderSection = (props) => {
 
   return (
     <div className="header-section">
-      <h1>知的協力ゲーム「50音表をぬりつぶせ！」</h1>
+      <h1>言葉遊びゲーム「50音表をぬりつぶせ！」</h1>
       <h2>お題: {gameTheme}</h2>
       <button className="button-rule" onClick={showModal}>
         ルール説明

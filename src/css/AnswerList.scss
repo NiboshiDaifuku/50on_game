@@ -1,0 +1,26 @@
+.answer-list {
+  width: 480px;
+  margin: 0 auto;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 6px;
+
+  .answer {
+    &.p1 {
+      //background-color: lightcoral;
+      background-color: #f0808080;
+    }
+    &.p2 {
+      //background-color: limegreen;
+      background-color: #32cd3280;
+    }
+    &.p3 {
+      //background-color: cornflowerblue;
+      background-color: #64a4ed80;
+    }
+    &.p4 {
+      //background-color: gold;
+      background-color: #ffd70080;
+    }
+  }
+}

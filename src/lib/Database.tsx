@@ -25,6 +25,7 @@ export const hiraganas: string[][] = [
   ["ん", "ろ", "も", "ほ", "の", "と", "そ", "こ", "お"]
 ];
 
+// 盤面を塗りつぶしたプレイヤー
 export const paintedPlayer: number[][] = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -35,14 +36,15 @@ export const paintedPlayer: number[][] = [
 
 export const playerNames: string[] = ["プレイヤー1", "プレイヤー2", "プレイヤー3", "プレイヤー4"];
 
+// 回答履歴
 export interface answerArray {
-  player: string;
+  player: number;
   answer: string;
   point: number;
 }
-
 export const answerQueue: answerArray[] = [];
 
+// ルール説明用Modal
 export const ruleModalContent = (
   <>
     <h1>ルール説明</h1>

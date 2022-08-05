@@ -3,12 +3,10 @@ import Tiles from "./Tiles";
 import Modal from "./Modal";
 import Player from "./Player";
 import {
-  addAnswerQueue,
   checkAnswerText,
   checkTextResult,
   convertAnswerText,
   gameResultModalContent,
-  getPlayerNameFromId,
   getPlayerTurn,
   isGameOver,
   updateGameResultModalContent,
@@ -35,7 +33,6 @@ const GameSection = (props) => {
 
   // 回答テキスト
   const [tempText, setTempText] = useState("");
-  //const [answerText, setAnswerText] = useState("");
   const onClickPassButton = () => {
     updatePlayerTurn();
     forceUpdate();
@@ -45,10 +42,9 @@ const GameSection = (props) => {
 
     // 回答がOKならテキストを更新してタイルの色塗りを実行
     if (checkResult === checkTextResult.OK) {
-      //setAnswerText(tempText);
       updateTiles(convertAnswerText(tempText), getPlayerTurn());
-      addAnswerQueue({
-        player: getPlayerNameFromId(getPlayerTurn()),
+      props.updateAnswerQueue({
+        player: getPlayerTurn(),
         answer: tempText,
         point: convertAnswerText(tempText).length
       });
