@@ -68,6 +68,20 @@ export const getPaintedTileNumFromPlayerId = (playerId: number) => {
   return paintedTileNum;
 };
 
+// 変換済み回答文字列を受け取って、塗れるタイルが何枚あるか返す関数
+export const countPaintableTiles = (text: string): number => {
+  let count = 0;
+
+  for (let i = 0; i < text.length; ++i) {
+    const tilePos = getTilePosFromHiragana(text.charAt(i));
+    if (paintedPlayer[tilePos.x][tilePos.y] === 0) {
+      count++;
+    }
+  }
+
+  return count;
+};
+
 /////////////////////////////////////////
 // ゲーム根幹の処理系
 /////////////////////////////////////////
@@ -139,29 +153,6 @@ export const checkTextResult = {
   ALREADY_PAINTED: 4
 };
 
-// 回答文字列を受け取って、有効な回答かどうか確認する関数
-export const checkAnswerText = (answer: string) => {
-  const pattern = /^[ぁ-んー]+$/;
-
-  // 全てひらがな
-  if (answer.match(pattern)) {
-    // 塗りつぶし可能なタイルが残っているか TODO★
-    // if (canUpdateTiles(tempText)) {
-    return checkTextResult.OK;
-    // } else {
-    // return checkTextResult.ALREADY_PAINTED
-    // }
-  }
-  // 何も入力されていない
-  else if (answer === "") {
-    return checkTextResult.EMPTY;
-  }
-  // ひらがな以外が含まれる
-  else {
-    return checkTextResult.NOT_HIRAGANA;
-  }
-};
-
 // 回答文字列を受け取り、以下の処理を施す関数
 //  ・濁点・半濁点の除去
 //  ・小文字を大文字に変換
@@ -210,6 +201,47 @@ export const convertAnswerText = (text: string) => {
     }
   }
   return convertedText;
+};
+
+// 回答文字列を受け取って、有効な回答かどうか確認する関数
+export const checkAnswerText = (answer: string) => {
+  const pattern = /^[ぁ-んー]+$/;
+
+  // 全てひらがな
+  if (answer.match(pattern)) {
+    const convertedAnswer = convertAnswerText(answer);
+
+    // 塗りつぶし可能なタイルが残っているか確認
+    if (countPaintableTiles(convertedAnswer) > 0) {
+      return checkTextResult.OK;
+    } else {
+      return checkTextResult.ALREADY_PAINTED;
+    }
+  }
+  // 何も入力されていない
+  else if (answer === "") {
+    return checkTextResult.EMPTY;
+  }
+  // ひらがな以外が含まれる
+  else {
+    return checkTextResult.NOT_HIRAGANA;
+  }
+};
+
+// 回答の確認結果からエラー内容を取得する関数
+export const getErrorAnswerMessage = (result: number): string => {
+  switch (result) {
+    case checkTextResult.OK:
+      return "";
+    case checkTextResult.EMPTY:
+      return "何も入力されてないよ！";
+    case checkTextResult.NOT_HIRAGANA:
+      return "ひらがな以外の文字が入ってるよ！";
+    case checkTextResult.ALREADY_PAINTED:
+      return "ぬりつぶせるタイルがないよ！";
+    default:
+      return "";
+  }
 };
 
 /////////////////////////////////////////

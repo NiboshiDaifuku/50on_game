@@ -2,10 +2,12 @@ import { useState, useReducer } from "react";
 import Tiles from "./Tiles";
 import Modal from "./Modal";
 import Player from "./Player";
+import ErrorAnswerNotice from "./ErrorAnswerNotice";
 import {
   checkAnswerText,
   checkTextResult,
   convertAnswerText,
+  countPaintableTiles,
   gameResultModalContent,
   getPlayerTurn,
   isGameOver,
@@ -31,34 +33,34 @@ const GameSection = (props) => {
   // ゲーム終了画面用Modal
   const [gameOver, setGameOver] = useState(false);
 
+  // 回答NG時の吹き出し
+  const [errorCode, setErrorCode] = useState(checkTextResult.OK);
+
   // 回答テキスト
   const [tempText, setTempText] = useState("");
   const onClickPassButton = () => {
     updatePlayerTurn();
     forceUpdate();
   };
+  let checkResult = checkTextResult.OK;
   const onClickAnswerButton = () => {
-    const checkResult = checkAnswerText(tempText);
+    checkResult = checkAnswerText(tempText);
 
     // 回答がOKならテキストを更新してタイルの色塗りを実行
     if (checkResult === checkTextResult.OK) {
-      updateTiles(convertAnswerText(tempText), getPlayerTurn());
+      const convertedAnswerText = convertAnswerText(tempText);
+      const point = countPaintableTiles(convertedAnswerText);
+      updateTiles(convertedAnswerText, getPlayerTurn());
       props.updateAnswerQueue({
         player: getPlayerTurn(),
         answer: tempText,
-        point: convertAnswerText(tempText).length
+        point: point
       });
       setTempText("");
       updatePlayerTurn();
     }
     // 回答がNGなら通知を出す
-    else if (checkResult === checkTextResult.EMPTY) {
-      console.log("何も入力されてないよ！");
-    } else if (checkResult === checkTextResult.NOT_HIRAGANA) {
-      console.log("ひらがな以外の文字が入ってるよ！");
-    } else if (checkResult === checkTextResult.ALREADY_PAINTED) {
-      console.log("ぬりつぶせるタイルがないよ！");
-    }
+    setErrorCode(checkResult);
 
     if (isGameOver()) {
       updateGameResultModalContent();
@@ -92,7 +94,7 @@ const GameSection = (props) => {
       >
         パス
       </button>
-      {/* answerQueue */}
+      <ErrorAnswerNotice errorCode={errorCode} />
     </div>
   );
 };
