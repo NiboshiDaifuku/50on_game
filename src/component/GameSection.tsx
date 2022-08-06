@@ -78,6 +78,7 @@ const GameSection = (props) => {
         name="answer"
         className={"answer-input-form p" + getPlayerTurn()}
         placeholder="ひらがなで回答を入力してね"
+        value={tempText}
         onChange={(event) => setTempText(event.target.value)}
       />
       <button
