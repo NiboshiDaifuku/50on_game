@@ -3,7 +3,7 @@ import { getPlayerNameFromId } from "../lib/GameOperation";
 
 const Player = (props) => {
   return (
-    <>
+    <div className="Players">
       <div className={"Player p1" + (props.turn === 1 ? " turn" : "")}>
         <div className="name">{getPlayerNameFromId(1)}</div>
       </div>
@@ -16,7 +16,7 @@ const Player = (props) => {
       <div className={"Player p4" + (props.turn === 4 ? " turn" : "")}>
         <div className="name">{getPlayerNameFromId(4)}</div>
       </div>
-    </>
+    </div>
   );
 };
 

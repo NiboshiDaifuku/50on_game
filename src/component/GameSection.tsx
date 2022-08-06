@@ -2,6 +2,7 @@ import { useState, useReducer } from "react";
 import Tiles from "./Tiles";
 import Modal from "./Modal";
 import Player from "./Player";
+import Operation from "./Operation";
 import ErrorAnswerNotice from "./ErrorAnswerNotice";
 import {
   checkAnswerText,
@@ -73,28 +74,14 @@ const GameSection = (props) => {
       <Tiles />
       <Player turn={getPlayerTurn()} />
       <Modal showFlag={gameOver} setShowModal={setShowModal} content={gameResultModalContent} />
-      <input
-        type="text"
-        name="answer"
-        className={"answer-input-form p" + getPlayerTurn()}
-        placeholder="ひらがなで回答を入力してね"
-        value={tempText}
-        onChange={(event) => setTempText(event.target.value)}
+      <Operation
+        inputFormClassName={"answer-input-form p" + getPlayerTurn()}
+        inputValue={tempText}
+        buttonClassName={"button-answer p" + getPlayerTurn()}
+        onChangeText={setTempText}
+        onClickAnswerButton={onClickAnswerButton}
+        onClickPassButton={onClickPassButton}
       />
-      <button
-        className={"button-answer p" + getPlayerTurn()}
-        type="button"
-        onClick={onClickAnswerButton}
-      >
-        決定
-      </button>
-      <button
-        className={"button-answer p" + getPlayerTurn()}
-        type="button"
-        onClick={onClickPassButton}
-      >
-        パス
-      </button>
       <ErrorAnswerNotice errorCode={errorCode} />
     </div>
   );

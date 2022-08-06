@@ -1,35 +1,39 @@
-.Player {
-  float: left;
-  margin: 3px 7px 3px 0px;
-  margin-top: 12px;
-  width: 150px;
-  height: 35px;
-  border-radius: 5%;
-  color: white;
-  opacity: 0.4;
+.Players {
+  margin-top: 9px;
+  height: 41px;
+  
+  .Player {
+    float: left;
+    margin: 3px 7px 3px 0px;
+    height: 35px;
+    width: 150px;
+    border-radius: 5%;
+    color: white;
+    opacity: 0.4;
 
-  &.p1 {
-    background-color: lightcoral;
+    &.p1 {
+      background-color: lightcoral;
+    }
+    &.p2 {
+      background-color: limegreen;
+    }
+    &.p3 {
+      background-color: cornflowerblue;
+    }
+    &.p4 {
+      background-color: gold;
+    }
+    &.turn {
+      opacity: 1.0;
+    }
   }
-  &.p2 {
-    background-color: limegreen;
-  }
-  &.p3 {
-    background-color: cornflowerblue;
-  }
-  &.p4 {
-    background-color: gold;
-  }
-  &.turn {
-    opacity: 1.0;
-  }
-}
 
-.name {
-  position: relative;
-  font-size: 15px;
-  font-weight: bold;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  .name {
+    position: relative;
+    font-size: 15px;
+    font-weight: bold;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }

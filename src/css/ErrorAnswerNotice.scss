@@ -1,0 +1,15 @@
+.answer-error-notice {
+  position: absolute;
+  margin-top: 10px;
+  width: 100% - 1;
+  height: 50px;
+  line-height: 50px;
+
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+
+  background-color: #ff0000e0;
+  border: solid 0px;
+  border-radius: 5px;
+}
