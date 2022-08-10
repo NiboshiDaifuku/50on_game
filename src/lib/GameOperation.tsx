@@ -162,6 +162,7 @@ export const convertAnswerText = (text: string) => {
   const patternVoicingMark = /^[がぎぐげござじずぜぞだぢづでどばびぶべぼ]+$/;
   const patternPsoundMark = /^[ぱぴぷぺぽ]+$/;
   const patternNotCovered = /^[ゎゐゑをー]+$/;
+  const patternVu = /^[ヴゔ]+$/;
 
   let convertedText = "";
 
@@ -184,6 +185,10 @@ export const convertAnswerText = (text: string) => {
     else if (char.match(patternPsoundMark)) {
       tempChar = String.fromCharCode(char.charCodeAt(0) - 2);
     }
+    // 「う」に濁点
+    else if (char.match(patternVu)) {
+      tempChar = "う";
+    }
     // それ以外の素のひらがな
     else {
       tempChar = char;
@@ -205,7 +210,7 @@ export const convertAnswerText = (text: string) => {
 
 // 回答文字列を受け取って、有効な回答かどうか確認する関数
 export const checkAnswerText = (answer: string) => {
-  const pattern = /^[ぁ-んー]+$/;
+  const pattern = /^[ぁ-んーヴゔ]+$/;
 
   // 全てひらがな
   if (answer.match(pattern)) {
