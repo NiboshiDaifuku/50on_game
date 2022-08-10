@@ -40,9 +40,12 @@ const GameSection = (props) => {
   // 回答テキスト
   const [tempText, setTempText] = useState("");
   const onClickPassButton = () => {
+    setTempText("");
+    setErrorCode(checkTextResult.OK);
     updatePlayerTurn();
     forceUpdate();
   };
+
   let checkResult = checkTextResult.OK;
   const onClickAnswerButton = () => {
     checkResult = checkAnswerText(tempText);
